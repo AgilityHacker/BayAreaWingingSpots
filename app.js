@@ -288,53 +288,82 @@
 
     // Initialize Maps
     function initializeMaps() {
-        // Wait for DOM and spots to be ready
-        setTimeout(() => {
-            mapAdapter = MapAdapter.select();
+        // Function to actually initialize the map
+        const initMap = () => {
+            const mapElement = document.getElementById('directory-map');
             
-            // Initialize directory map
+            // Skip if map already initialized or element doesn't exist
+            if (!mapElement || directoryMap) return;
+            
+            // Check if Leaflet is available
+            if (typeof L !== 'undefined') {
+                try {
+                    // Initialize Leaflet map
+                    directoryMap = L.map('directory-map', {
+                        center: [37.8, -122.4],
+                        zoom: 9
+                    });
+                    
+                    // Add tile layer
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors',
+                        maxZoom: 18
+                    }).addTo(directoryMap);
+                    
+                    // Add markers for all spots
+                    if (state.spots && state.spots.length > 0) {
+                        const bounds = [];
+                        state.spots.forEach(spot => {
+                            if (spot.coordinates) {
+                                const marker = L.marker([spot.coordinates.lat, spot.coordinates.lng])
+                                    .bindPopup(`<strong>${spot.name}</strong><br>${spot.region}<br>${spot.skillLevel}`)
+                                    .addTo(directoryMap);
+                                bounds.push([spot.coordinates.lat, spot.coordinates.lng]);
+                            }
+                        });
+                        
+                        // Fit map to show all markers
+                        if (bounds.length > 0) {
+                            directoryMap.fitBounds(bounds, { padding: [50, 50] });
+                        }
+                    }
+                    
+                    console.log('Map initialized successfully');
+                } catch (e) {
+                    console.error('Error initializing map:', e);
+                    // Fall back to SVG
+                    showSvgFallback();
+                }
+            } else {
+                // Use SVG fallback if Leaflet not available
+                showSvgFallback();
+            }
+        };
+        
+        // Function to show SVG fallback
+        const showSvgFallback = () => {
             const mapElement = document.getElementById('directory-map');
             const svgElement = document.getElementById('svg-map-fallback');
             
-            if (mapElement || svgElement) {
-                // Check if we should use SVG fallback
-                if (typeof L === 'undefined') {
-                    // Hide Leaflet map, show SVG
-                    if (mapElement) mapElement.style.display = 'none';
-                    if (svgElement) {
-                        svgElement.style.display = 'block';
-                        const svg = svgElement.querySelector('svg');
-                        if (svg && state.spots.length) {
-                            // Use SVG adapter
-                            const svgAdapter = new SvgAdapter();
-                            state.spots.forEach(spot => {
-                                svgAdapter.addMarker(svg, spot);
-                            });
-                        }
-                    }
-                } else {
-                    // Use Leaflet
-                    try {
-                        directoryMap = L.map('directory-map').setView([37.8, -122.4], 9);
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            attribution: '© OpenStreetMap contributors',
-                            maxZoom: 18
-                        }).addTo(directoryMap);
-                        
-                        // Add markers
-                        if (state.spots.length) {
-                            const leafletAdapter = new LeafletAdapter();
-                            state.spots.forEach(spot => {
-                                leafletAdapter.addMarker(directoryMap, spot);
-                            });
-                            leafletAdapter.fitToSpots(directoryMap, state.spots);
-                        }
-                    } catch (e) {
-                        console.log('Map initialization deferred');
-                    }
+            if (mapElement) mapElement.style.display = 'none';
+            if (svgElement) {
+                svgElement.style.display = 'block';
+                const svg = svgElement.querySelector('svg');
+                if (svg && state.spots.length) {
+                    const svgAdapter = new SvgAdapter();
+                    state.spots.forEach(spot => {
+                        svgAdapter.addMarker(svg, spot);
+                    });
                 }
             }
-        }, 500);
+        };
+        
+        // Try to initialize immediately and with delay
+        initMap();
+        setTimeout(initMap, 1000);
+        
+        // Also try when window loads
+        window.addEventListener('load', initMap);
     }
 
     // Gallery Component
@@ -547,10 +576,12 @@
                 showView('spots');
                 applyFilters();  // Apply filters first to process URL params
                 renderSpots();
-                // Reinitialize map if needed
-                if (!directoryMap) {
-                    initializeMaps();
-                }
+                // Reinitialize map after view is shown
+                setTimeout(() => {
+                    if (!directoryMap && typeof L !== 'undefined') {
+                        initializeMaps();
+                    }
+                }, 100);
                 break;
             case 'getting-started':
                 showView('getting-started');
