@@ -889,4 +889,458 @@ a:hover {
     .spot-card {
         break-inside: avoid;
     }
+}/* Beach Boys Enhanced Theme - Good Vibrations Edition */
+
+/* Beach Boys Color Palette */
+.theme-retro {
+    /* Core Beach Boys Colors */
+    --bb-coral: #FF6B6B;
+    --bb-aqua: #4ECDC4;
+    --bb-sand: #F7DC6F;
+    --bb-sky: #87CEEB;
+    --bb-seafoam: #95E1D3;
+    --bb-sunset: #FFA07A;
+    --bb-driftwood: #D4A574;
+    --bb-shell-pink: #FFB6C1;
+    --bb-ocean-deep: #1E6BA8;
+    --bb-foam-white: #FFFEFA;
+    
+    /* Pastel Harmonies */
+    --bb-pastel-yellow: #FFF5BA;
+    --bb-pastel-blue: #C3E9FF;
+    --bb-pastel-pink: #FFE0EC;
+    --bb-pastel-green: #D4F4DD;
+    --bb-pastel-orange: #FFDAB9;
+    
+    /* Override theme colors with Beach Boys palette */
+    --surf-sun: var(--bb-sand);
+    --seafoam: var(--bb-seafoam);
+    --sunset: var(--bb-sunset);
+    --ocean-blue: var(--bb-ocean-deep);
+    --sand: var(--bb-pastel-yellow);
+    --kelp: #2B4C3F;
+    
+    --color-primary: var(--bb-aqua);
+    --color-primary-dark: var(--bb-ocean-deep);
+    --color-primary-light: var(--bb-pastel-blue);
+    --color-accent: var(--bb-coral);
+    --color-background: linear-gradient(180deg, var(--bb-foam-white) 0%, var(--bb-pastel-blue) 100%);
+    --color-surface: var(--bb-pastel-yellow);
+}
+
+/* Striped Beach Umbrella Pattern */
+.theme-retro body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(255, 107, 107, 0.03) 20px,
+        rgba(255, 107, 107, 0.03) 40px,
+        transparent 40px,
+        transparent 60px,
+        rgba(78, 205, 196, 0.03) 60px,
+        rgba(78, 205, 196, 0.03) 80px
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Sound Wave Pattern Overlay */
+@keyframes soundWave {
+    0% { transform: translateX(0) scaleY(1); }
+    25% { transform: translateX(-10px) scaleY(1.1); }
+    50% { transform: translateX(0) scaleY(0.9); }
+    75% { transform: translateX(10px) scaleY(1.1); }
+    100% { transform: translateX(0) scaleY(1); }
+}
+
+.theme-retro .hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 100'%3E%3Cpath d='M0 50 Q150 20, 300 50 T600 50 T900 50 T1200 50' stroke='%2387CEEB' stroke-width='3' fill='none' opacity='0.3'/%3E%3Cpath d='M0 60 Q150 40, 300 60 T600 60 T900 60 T1200 60' stroke='%234ECDC4' stroke-width='2' fill='none' opacity='0.4'/%3E%3Cpath d='M0 70 Q150 50, 300 70 T600 70 T900 70 T1200 70' stroke='%23FF6B6B' stroke-width='2' fill='none' opacity='0.3'/%3E%3C/svg%3E");
+    animation: soundWave 4s ease-in-out infinite;
+}
+
+/* Surfboard Decorations */
+.theme-retro .hero::after {
+    content: '🏄';
+    position: absolute;
+    font-size: 60px;
+    top: 20%;
+    right: 10%;
+    transform: rotate(-15deg);
+    animation: floatSurf 6s ease-in-out infinite;
+    opacity: 0.3;
+}
+
+@keyframes floatSurf {
+    0%, 100% { transform: rotate(-15deg) translateY(0); }
+    50% { transform: rotate(-10deg) translateY(-20px); }
+}
+
+/* Musical Notes Floating */
+.theme-retro .site-header::before {
+    content: '♪ ♫ ♪';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: var(--bb-coral);
+    opacity: 0.4;
+    animation: musicFloat 8s ease-in-out infinite;
+}
+
+@keyframes musicFloat {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    25% { transform: translateY(-45%) scale(1.1); }
+    50% { transform: translateY(-55%) scale(0.9); }
+    75% { transform: translateY(-48%) scale(1.05); }
+}
+
+/* Vinyl Record Style Elements */
+.theme-retro .spot-card {
+    position: relative;
+    background: radial-gradient(circle at center, 
+        var(--bb-pastel-yellow) 0%, 
+        var(--bb-pastel-yellow) 30%,
+        #333 31%,
+        #333 32%,
+        var(--bb-pastel-yellow) 33%,
+        var(--bb-pastel-yellow) 45%,
+        #333 46%,
+        #333 47%,
+        var(--bb-pastel-yellow) 48%,
+        var(--bb-pastel-yellow) 100%
+    );
+    border: 3px solid var(--bb-driftwood);
+}
+
+.theme-retro .spot-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--bb-coral);
+    box-shadow: inset 0 0 0 8px var(--bb-pastel-yellow);
+    pointer-events: none;
+}
+
+/* Beach Boys Typography */
+.theme-retro h1, .theme-retro h2 {
+    text-shadow: 
+        3px 3px 0 var(--bb-coral),
+        6px 6px 0 var(--bb-aqua),
+        9px 9px 15px rgba(0,0,0,0.2);
+    letter-spacing: 2px;
+}
+
+.theme-retro .hero-title {
+    background: linear-gradient(
+        45deg,
+        var(--bb-coral) 0%,
+        var(--bb-sand) 25%,
+        var(--bb-aqua) 50%,
+        var(--bb-seafoam) 75%,
+        var(--bb-coral) 100%
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: beachGradient 5s ease infinite;
+}
+
+@keyframes beachGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Harmonious Button Styles */
+.theme-retro .btn-primary {
+    background: linear-gradient(135deg, var(--bb-coral) 0%, var(--bb-aqua) 100%);
+    border: 3px solid var(--bb-foam-white);
+    box-shadow: 
+        0 4px 0 var(--bb-ocean-deep),
+        0 8px 15px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-retro .btn-primary::before {
+    content: '🌊';
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    transition: left 0.3s ease;
+}
+
+.theme-retro .btn-primary:hover::before {
+    left: 10px;
+}
+
+.theme-retro .btn-primary:active {
+    transform: translateY(4px);
+    box-shadow: 
+        0 0 0 var(--bb-ocean-deep),
+        0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Retro Surf Poster Cards */
+.theme-retro .home-card {
+    background: linear-gradient(135deg, var(--bb-pastel-yellow) 0%, var(--bb-pastel-pink) 100%);
+    border: 4px solid var(--bb-foam-white);
+    box-shadow: 
+        8px 8px 0 var(--bb-driftwood),
+        8px 8px 20px rgba(0,0,0,0.1);
+    position: relative;
+    transform: rotate(-1deg);
+}
+
+.theme-retro .home-card:nth-child(even) {
+    transform: rotate(1deg);
+    background: linear-gradient(135deg, var(--bb-pastel-blue) 0%, var(--bb-pastel-green) 100%);
+}
+
+.theme-retro .home-card::after {
+    content: '☀️';
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    font-size: 30px;
+    animation: sunSpin 10s linear infinite;
+}
+
+@keyframes sunSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Beach Boys Badge Styles */
+.theme-retro .badge {
+    border-radius: 20px;
+    border: 2px solid var(--bb-foam-white);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.theme-retro .badge-winter {
+    background: linear-gradient(135deg, var(--bb-sky) 0%, var(--bb-pastel-blue) 100%);
+    color: var(--bb-ocean-deep);
+}
+
+.theme-retro .badge-winter::after {
+    content: ' ❄️';
+}
+
+/* Harmonic Hover Effects */
+.theme-retro .spot-card {
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.theme-retro .spot-card:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 
+        0 10px 30px rgba(78, 205, 196, 0.3),
+        0 15px 40px rgba(255, 107, 107, 0.2);
+}
+
+/* Wave Border Animations */
+@keyframes waveMotion {
+    0%, 100% { d: path('M0 30 Q300 0, 600 30 T1200 30'); }
+    50% { d: path('M0 30 Q300 60, 600 30 T1200 30'); }
+}
+
+.theme-retro .hero {
+    position: relative;
+    background: 
+        linear-gradient(180deg, var(--bb-sky) 0%, var(--bb-pastel-blue) 50%, var(--bb-aqua) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='20' cy='20' r='2' fill='%23FFB6C1' opacity='0.3'/%3E%3Ccircle cx='80' cy='60' r='2' fill='%234ECDC4' opacity='0.3'/%3E%3Ccircle cx='50' cy='80' r='2' fill='%23FF6B6B' opacity='0.3'/%3E%3C/svg%3E");
+}
+
+/* Footer Beach Scene */
+.theme-retro .site-footer {
+    background: 
+        linear-gradient(180deg, var(--bb-ocean-deep) 0%, #0a3d62 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-retro .site-footer::before {
+    content: '🏖️ 🌴 🏄 🎵 🌊';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    opacity: 0.3;
+    white-space: nowrap;
+    animation: beachScroll 20s linear infinite;
+}
+
+@keyframes beachScroll {
+    from { transform: translateX(-50%) translateX(-100px); }
+    to { transform: translateX(-50%) translateX(100px); }
+}
+
+/* Map Pin Beach Boys Style */
+.theme-retro .leaflet-marker-icon {
+    filter: drop-shadow(3px 3px 0 var(--bb-coral)) drop-shadow(6px 6px 0 var(--bb-aqua));
+}
+
+/* Gallery Polaroid Beach Style */
+.theme-retro .gallery-item {
+    background: var(--bb-foam-white);
+    border: 8px solid var(--bb-foam-white);
+    box-shadow: 
+        0 4px 6px rgba(0,0,0,0.1),
+        0 8px 20px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.theme-retro .gallery-item::before {
+    content: 'Summer \2764 \'64';
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 10px;
+    color: var(--bb-coral);
+    font-style: italic;
+    opacity: 0.5;
+}
+
+/* Risk Banner Surf Alert Style */
+.theme-retro .risk-banner {
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            var(--bb-coral),
+            var(--bb-coral) 10px,
+            var(--bb-sand) 10px,
+            var(--bb-sand) 20px
+        );
+    border: 4px solid var(--bb-foam-white);
+    box-shadow: 0 6px 0 var(--bb-ocean-deep);
+}
+
+/* Lens Buttons Harmony Style */
+.theme-retro .lens-btn {
+    background: var(--bb-pastel-yellow);
+    border: 2px solid var(--bb-driftwood);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.theme-retro .lens-btn:hover {
+    background: var(--bb-coral);
+    color: var(--bb-foam-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 var(--bb-ocean-deep);
+}
+
+.theme-retro .lens-btn.active {
+    background: linear-gradient(135deg, var(--bb-coral) 0%, var(--bb-aqua) 100%);
+    color: var(--bb-foam-white);
+}
+
+/* Navigation Surf Safari Style */
+.theme-retro .nav-links a {
+    position: relative;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--bb-ocean-deep);
+}
+
+.theme-retro .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--bb-coral) 0%, var(--bb-aqua) 50%, var(--bb-sand) 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.theme-retro .nav-links a:hover::after,
+.theme-retro .nav-links a[aria-current="page"]::after {
+    transform: scaleX(1);
+}
+
+/* Theme Toggle Surf Switch */
+.theme-retro .theme-label {
+    background: linear-gradient(135deg, var(--bb-sunset) 0%, var(--bb-sky) 100%);
+    border: 3px solid var(--bb-foam-white);
+    box-shadow: 0 3px 0 var(--bb-ocean-deep);
+}
+
+/* Decorative Elements */
+.theme-retro main {
+    position: relative;
+}
+
+.theme-retro main::before {
+    content: '';
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23FF6B6B' stroke-width='2' opacity='0.3'/%3E%3Ccircle cx='50' cy='50' r='35' fill='none' stroke='%234ECDC4' stroke-width='2' opacity='0.3'/%3E%3Ccircle cx='50' cy='50' r='25' fill='none' stroke='%23F7DC6F' stroke-width='2' opacity='0.3'/%3E%3Ccircle cx='50' cy='50' r='15' fill='none' stroke='%2387CEEB' stroke-width='2' opacity='0.3'/%3E%3Ccircle cx='50' cy='50' r='5' fill='%23FF6B6B' opacity='0.5'/%3E%3C/svg%3E");
+    animation: vinylSpin 4s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes vinylSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Beach Boys */
+@media (max-width: 768px) {
+    .theme-retro h1 {
+        text-shadow: 
+            2px 2px 0 var(--bb-coral),
+            4px 4px 0 var(--bb-aqua),
+            6px 6px 10px rgba(0,0,0,0.2);
+    }
+}
+
+/* Print Styles - Concert Poster Feel */
+@media print {
+    .theme-retro body {
+        background: var(--bb-foam-white);
+        color: var(--bb-ocean-deep);
+    }
+    
+    .theme-retro h1, .theme-retro h2 {
+        border-bottom: 4px solid var(--bb-coral);
+    }
 }
