@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bay Area Winging Spots - Find Your Perfect Wing Foiling Location</title>
+    <meta name="description" content="Discover the best wing foiling spots in the San Francisco Bay Area. Find locations by skill level, tide conditions, and facilities.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    
+    <header class="site-header">
+        <nav class="main-nav" role="navigation" aria-label="Main navigation">
+            <div class="nav-container">
+                <a href="#home" class="nav-logo">
+                    <img src="assets/logo.svg" alt="" width="40" height="40">
+                    <span>Bay Area Winging Spots</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home" aria-current="page">Home</a></li>
+                    <li><a href="#spots">Spots</a></li>
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main" class="main-content">
+        <!-- Home Section -->
+        <section id="home-view" class="view active" aria-labelledby="home-heading">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 id="home-heading">Find Your Perfect Wing Foiling Spot</h1>
+                    <p class="hero-subtitle">Comprehensive guide to wing foiling locations across the San Francisco Bay Area</p>
+                    <div class="hero-features">
+                        <div class="feature-badge">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span>30+ Locations</span>
+                        </div>
+                        <div class="feature-badge">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v20M2 12h20"/>
+                            </svg>
+                            <span>All Skill Levels</span>
+                        </div>
+                        <div class="feature-badge">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 7h18M3 12h18M3 17h18"/>
+                            </svg>
+                            <span>Tide & Wind Info</span>
+                        </div>
+                    </div>
+                    <a href="#spots" class="btn btn-primary btn-large">Explore Spots</a>
+                </div>
+            </div>
+
+            <section class="home-sections">
+                <div class="container">
+                    <div class="home-grid">
+                        <article class="home-card">
+                            <h2>Popular Winter Spots</h2>
+                            <p>Discover the best locations for winter wing foiling with reliable conditions and good facilities.</p>
+                            <ul class="spot-quick-list">
+                                <li>His Lordship (Berkeley Marina)</li>
+                                <li>Barbara & Jay Vincent Park</li>
+                                <li>Point Isabel</li>
+                            </ul>
+                            <a href="#spots?season=winter" class="link-arrow">View all winter spots</a>
+                        </article>
+
+                        <article class="home-card">
+                            <h2>Beginner Friendly</h2>
+                            <p>Start your wing foiling journey at these safe, accessible locations perfect for learning.</p>
+                            <ul class="spot-quick-list">
+                                <li>Palo Alto Lake</li>
+                                <li>Alameda Beach</li>
+                                <li>Marina Bay</li>
+                            </ul>
+                            <a href="#spots?skill=beginner" class="link-arrow">Find beginner spots</a>
+                        </article>
+
+                        <article class="home-card">
+                            <h2>Community</h2>
+                            <p>Connect with the Bay Area wing foiling community through local groups and resources.</p>
+                            <a href="#resources" class="link-arrow">Join the community</a>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Spots Section -->
+        <section id="spots-view" class="view" aria-labelledby="spots-heading">
+            <div class="spots-header">
+                <div class="container">
+                    <h1 id="spots-heading">Wing Foiling Spots Directory</h1>
+                    
+                    <div class="search-bar">
+                        <label for="spot-search" class="visually-hidden">Search spots</label>
+                        <input type="search" id="spot-search" placeholder="Search by name or location..." aria-label="Search spots">
+                        <button type="button" id="search-btn" aria-label="Search">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spots-content">
+                <div class="container">
+                    <div class="spots-layout">
+                        <aside class="filters-panel" aria-label="Filters">
+                            <div class="filters-header">
+                                <h2>Filters</h2>
+                                <button type="button" id="clear-filters" class="btn-text">Clear all</button>
+                            </div>
+
+                            <div class="filter-group">
+                                <fieldset>
+                                    <legend>Region</legend>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="region" value="East Bay">
+                                        <span>East Bay</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="region" value="San Francisco">
+                                        <span>San Francisco</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="region" value="Marin">
+                                        <span>Marin</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="region" value="Peninsula">
+                                        <span>Peninsula</span>
+                                    </label>
+                                </fieldset>
+                            </div>
+
+                            <div class="filter-group">
+                                <fieldset>
+                                    <legend>Skill Level</legend>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="skill" value="beginner">
+                                        <span>Beginner</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="skill" value="intermediate">
+                                        <span>Intermediate</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="skill" value="advanced">
+                                        <span>Advanced</span>
+                                    </label>
+                                </fieldset>
+                            </div>
+
+                            <div class="filter-group">
+                                <fieldset>
+                                    <legend>Tide Suitability</legend>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="tide" value="any">
+                                        <span>Any Tide</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="tide" value="high">
+                                        <span>High Tide</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="tide" value="low">
+                                        <span>Low Tide</span>
+                                    </label>
+                                </fieldset>
+                            </div>
+
+                            <div class="filter-group">
+                                <fieldset>
+                                    <legend>Features</legend>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="feature" value="winter">
+                                        <span>Winter Friendly</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="feature" value="flat">
+                                        <span>Flat Water</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="feature" value="bathroom">
+                                        <span>Bathrooms</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="feature" value="water">
+                                        <span>Water Access</span>
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </aside>
+
+                        <div class="spots-main">
+                            <div class="spots-toolbar">
+                                <div class="results-count">
+                                    <span id="results-count">Loading spots...</span>
+                                </div>
+                                <div class="sort-controls">
+                                    <label for="sort-select" class="visually-hidden">Sort by</label>
+                                    <select id="sort-select" aria-label="Sort spots">
+                                        <option value="name">Name A-Z</option>
+                                        <option value="popular">Most Popular</option>
+                                        <option value="tide">Tide Flexibility</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="spots-grid" class="spots-grid" role="list">
+                                <!-- Spots will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spot Detail Section -->
+        <section id="spot-detail-view" class="view" aria-labelledby="spot-name">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="#spots" id="back-to-results">← Back to spots</a>
+                </nav>
+                <div id="spot-detail-content">
+                    <!-- Spot details will be rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Getting Started Section -->
+        <section id="getting-started-view" class="view" aria-labelledby="getting-started-heading">
+            <div class="container">
+                <h1 id="getting-started-heading">Getting Started with Wing Foiling</h1>
+                
+                <div class="content-layout">
+                    <article class="content-card">
+                        <h2>1. Take Lessons</h2>
+                        <p>While self-teaching is possible, professional lessons will accelerate your learning and ensure safety. Most people can get up and riding within 2-3 lessons.</p>
+                        <ul>
+                            <li>Learn proper wing handling on land first</li>
+                            <li>Master board balance and stance</li>
+                            <li>Understand safety protocols and self-rescue</li>
+                        </ul>
+                    </article>
+
+                    <article class="content-card">
+                        <h2>2. Essential Gear</h2>
+                        <p>Start with the right equipment for your skill level and local conditions.</p>
+                        <ul>
+                            <li><strong>Wing:</strong> 4-6m depending on wind and weight</li>
+                            <li><strong>Board:</strong> High volume (20-40L above body weight) for beginners</li>
+                            <li><strong>Foil:</strong> Large front wing (1500-2000cm²) for stability</li>
+                            <li><strong>Safety:</strong> Impact vest, helmet, leash</li>
+                            <li><strong>Wetsuit:</strong> 4/3 or 5/4 for Bay Area waters</li>
+                        </ul>
+                    </article>
+
+                    <article class="content-card">
+                        <h2>3. Progression Steps</h2>
+                        <ol>
+                            <li>Wing handling on beach - learn to control power</li>
+                            <li>Body dragging in water - feel the wing's pull</li>
+                            <li>Board work without foil - practice stance and transitions</li>
+                            <li>Taxi practice - ride the board without lifting</li>
+                            <li>First flights - short rides on foil</li>
+                            <li>Sustained foiling - link turns and jibes</li>
+                        </ol>
+                    </article>
+
+                    <article class="content-card">
+                        <h2>4. Safety First</h2>
+                        <p>Bay Area waters can be challenging. Always prioritize safety.</p>
+                        <ul>
+                            <li>Check wind and tide forecasts</li>
+                            <li>Know self-rescue techniques</li>
+                            <li>Stay within your limits</li>
+                            <li>Understand local hazards and currents</li>
+                            <li>Wing with others when possible</li>
+                            <li>Carry a whistle and consider a GPS tracker</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <section class="beginner-spots">
+                    <h2>Best Beginner Spots</h2>
+                    <p>Start your journey at these forgiving locations with easy launches and safer conditions.</p>
+                    <div id="beginner-spots-grid" class="spots-grid">
+                        <!-- Beginner spots will be rendered here -->
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources-view" class="view" aria-labelledby="resources-heading">
+            <div class="container">
+                <h1 id="resources-heading">Wing Foiling Resources</h1>
+                
+                <div class="resources-grid">
+                    <article class="resource-card">
+                        <h2>Community Groups</h2>
+                        <div class="resource-content">
+                            <h3>Facebook Groups</h3>
+                            <ul>
+                                <li>
+                                    <a href="#" class="resource-link" onclick="return false">
+                                        Bay Area Wing Foilers
+                                        <span class="link-note">(Main community group - 2000+ members)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="resource-link" onclick="return false">
+                                        NorCal Wing & Foil
+                                        <span class="link-note">(Regional discussions and meetups)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                            <h3>Telegram Groups</h3>
+                            <ul>
+                                <li>
+                                    <a href="#" class="resource-link" onclick="return false">
+                                        SF Bay Wing Conditions
+                                        <span class="link-note">(Real-time conditions updates)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="resource-link" onclick="return false">
+                                        Bay Area Wing Gear Exchange
+                                        <span class="link-note">(Buy/sell/trade equipment)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <p class="note">Note: Links are placeholders. Search for these groups on the respective platforms.</p>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h2>Tide & Wind Resources</h2>
+                        <div class="resource-content">
+                            <h3>Understanding Bay Area Conditions</h3>
+                            <ul>
+                                <li><strong>Thermal winds:</strong> Strongest April-September, 15-25 knots typical</li>
+                                <li><strong>Winter storms:</strong> October-March, variable conditions</li>
+                                <li><strong>Tide impact:</strong> Can affect launch accessibility and current strength</li>
+                                <li><strong>Best time:</strong> Afternoon winds typically strongest 2-6 PM</li>
+                            </ul>
+                            
+                            <h3>Key Considerations</h3>
+                            <ul>
+                                <li>Flood tide creates upwind current (easier upwind)</li>
+                                <li>Ebb tide creates downwind current (harder to return)</li>
+                                <li>Max ebb/flood creates strongest currents</li>
+                                <li>Slack tide offers calmest water</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h2>Safety Checklist</h2>
+                        <div class="resource-content">
+                            <h3>Before You Launch</h3>
+                            <div class="checklist">
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span>Check wind forecast (strength & direction)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span>Check tide chart and currents</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span>Inspect all equipment connections</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span>Inform someone of your plans</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span>Wear appropriate safety gear</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span>Know self-rescue procedure</span>
+                                </label>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="resource-card">
+                        <h2>Winter Winging Tips</h2>
+                        <div class="resource-content">
+                            <h3>Cold Water Preparation</h3>
+                            <ul>
+                                <li><strong>Wetsuit:</strong> 5/4mm with hood for winter</li>
+                                <li><strong>Gloves:</strong> 3mm minimum, consider lobster claw style</li>
+                                <li><strong>Boots:</strong> 5mm with good grip</li>
+                                <li><strong>Hot water:</strong> Bring thermos for post-session</li>
+                            </ul>
+                            
+                            <h3>Winter Conditions</h3>
+                            <ul>
+                                <li>Shorter sessions (cold reduces endurance)</li>
+                                <li>Variable winds (storms bring gusty conditions)</li>
+                                <li>Lower sun angle affects visibility</li>
+                                <li>Fewer people on water (buddy system important)</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Bay Area Winging Spots. Community-driven resource for wing foilers.</p>
+            <p class="footer-note">Always verify conditions before heading out. Wing responsibly.</p>
+        </div>
+    </footer>
+
+    <script src="data/spots.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
