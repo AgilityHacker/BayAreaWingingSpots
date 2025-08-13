@@ -298,10 +298,12 @@
             // Check if Leaflet is available
             if (typeof L !== 'undefined') {
                 try {
-                    // Initialize Leaflet map
+                    // Initialize Leaflet map with better default view of entire Bay Area
                     directoryMap = L.map('directory-map', {
-                        center: [37.8, -122.4],
-                        zoom: 9
+                        center: [37.65, -122.25],  // Center between SF and East Bay
+                        zoom: 10,  // Better initial zoom to see whole bay
+                        minZoom: 9,
+                        maxZoom: 18
                     });
                     
                     // Add tile layer
@@ -310,21 +312,46 @@
                         maxZoom: 18
                     }).addTo(directoryMap);
                     
-                    // Add markers for all spots
+                    // Add markers for all spots with better styling
                     if (state.spots && state.spots.length > 0) {
-                        const bounds = [];
+                        const bounds = L.latLngBounds();
+                        const markerGroup = L.layerGroup();
+                        
                         state.spots.forEach(spot => {
                             if (spot.coordinates) {
-                                const marker = L.marker([spot.coordinates.lat, spot.coordinates.lng])
-                                    .bindPopup(`<strong>${spot.name}</strong><br>${spot.region}<br>${spot.skillLevel}`)
-                                    .addTo(directoryMap);
-                                bounds.push([spot.coordinates.lat, spot.coordinates.lng]);
+                                // Color based on skill level
+                                const colors = {
+                                    'Beginner': '#28a745',
+                                    'Intermediate': '#0066cc', 
+                                    'Advanced': '#dc3545'
+                                };
+                                
+                                const color = colors[spot.skillLevel] || '#0066cc';
+                                
+                                const marker = L.circleMarker([spot.coordinates.lat, spot.coordinates.lng], {
+                                    radius: 8,
+                                    fillColor: color,
+                                    color: '#fff',
+                                    weight: 2,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                });
+                                
+                                marker.bindPopup(`<strong>${spot.name}</strong><br>${spot.region}<br>${spot.skillLevel}`)
+                                      .addTo(markerGroup);
+                                      
+                                bounds.extend([spot.coordinates.lat, spot.coordinates.lng]);
                             }
                         });
                         
-                        // Fit map to show all markers
-                        if (bounds.length > 0) {
-                            directoryMap.fitBounds(bounds, { padding: [50, 50] });
+                        markerGroup.addTo(directoryMap);
+                        
+                        // Fit bounds with better padding to show all spots comfortably
+                        if (bounds.isValid()) {
+                            directoryMap.fitBounds(bounds, { 
+                                padding: [20, 20],
+                                maxZoom: 11  // Don't zoom in too much
+                            });
                         }
                     }
                     
@@ -679,8 +706,17 @@
             btn.addEventListener('click', (e) => {
                 state.currentLens = e.target.dataset.lens;
                 updateLensButtons();
-                if (mapAdapter && directoryMap) {
+                
+                // Re-sort and re-render spots based on lens
+                applyFilters();
+                renderSpots();
+                
+                // Update map markers if map exists
+                if (directoryMap && mapAdapter) {
                     mapAdapter.setLens(directoryMap, state.currentLens);
+                    
+                    // Optionally highlight markers based on lens scores
+                    updateMapMarkers();
                 }
             });
         });
@@ -739,6 +775,62 @@
                 btn.classList.remove('active');
             }
         });
+    }
+    
+    // Update Map Markers based on lens
+    function updateMapMarkers() {
+        if (!directoryMap || !state.spots) return;
+        
+        // Clear existing markers
+        directoryMap.eachLayer(layer => {
+            if (layer instanceof L.CircleMarker || layer instanceof L.LayerGroup) {
+                directoryMap.removeLayer(layer);
+            }
+        });
+        
+        const markerGroup = L.layerGroup();
+        
+        state.spots.forEach(spot => {
+            if (spot.coordinates) {
+                // Base colors
+                const colors = {
+                    'Beginner': '#28a745',
+                    'Intermediate': '#0066cc', 
+                    'Advanced': '#dc3545'
+                };
+                
+                let radius = 8;
+                let opacity = 0.8;
+                
+                // Adjust based on lens
+                if (state.currentLens !== 'all' && spot.lensHints) {
+                    const score = spot.lensHints[`${state.currentLens}Score`] || 3;
+                    radius = 4 + score * 2;  // Bigger for higher scores
+                    opacity = 0.3 + (score / 5) * 0.7;  // More visible for higher scores
+                }
+                
+                const color = colors[spot.skillLevel] || '#0066cc';
+                
+                const marker = L.circleMarker([spot.coordinates.lat, spot.coordinates.lng], {
+                    radius: radius,
+                    fillColor: color,
+                    color: '#fff',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: opacity
+                });
+                
+                marker.bindPopup(`
+                    <strong>${spot.name}</strong><br>
+                    ${spot.region}<br>
+                    ${spot.skillLevel}
+                    ${state.currentLens !== 'all' && spot.lensHints ? 
+                        `<br>${state.currentLens} score: ${spot.lensHints[`${state.currentLens}Score`]}/5` : ''}
+                `).addTo(markerGroup);
+            }
+        });
+        
+        markerGroup.addTo(directoryMap);
     }
 
     // Handle Search
