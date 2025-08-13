@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- Sun rays -->
+  <g opacity="0.6">
+    <path d="M30 20 L35 10 L40 20" stroke="#FFB454" stroke-width="1.5" fill="none"/>
+    <path d="M20 25 L10 22 L18 30" stroke="#FFB454" stroke-width="1.5" fill="none"/>
+    <path d="M50 25 L60 22 L52 30" stroke="#FFB454" stroke-width="1.5" fill="none"/>
+  </g>
+  
+  <!-- Rising sun -->
+  <circle cx="35" cy="28" r="12" fill="#FFB454" opacity="0.9"/>
+  <path d="M23 28 Q35 23, 47 28" fill="#F47B7B" opacity="0.7"/>
+  
+  <!-- Wave underline -->
+  <path d="M10 45 Q20 42, 30 45 T50 45 T70 45 T90 45 T110 45 T130 45 T150 45 T170 45 T190 45" 
+        stroke="#6FD3B8" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M15 50 Q25 47, 35 50 T55 50 T75 50 T95 50 T115 50 T135 50 T155 50 T175 50" 
+        stroke="#3E7BB6" stroke-width="2" fill="none" opacity="0.6" stroke-linecap="round"/>
+  
+  <!-- Wing shape -->
+  <path d="M15 25 C10 20, 8 15, 10 10 C12 15, 18 18, 25 20 L35 18 L45 20 C52 18, 58 15, 60 10 C62 15, 60 20, 55 25" 
+        fill="#3E7BB6" opacity="0.3"/>
+  
+  <!-- Text with retro style -->
+  <text x="70" y="25" font-family="'Segoe UI', 'Helvetica Neue', system-ui, -apple-system, sans-serif" 
+        font-size="18" font-weight="600" fill="#2F4F3A" letter-spacing="0.5">
+    Bay Area
+  </text>
+  <text x="70" y="42" font-family="'Segoe UI', 'Helvetica Neue', system-ui, -apple-system, sans-serif" 
+        font-size="20" font-weight="700" fill="#3E7BB6" letter-spacing="0.3">
+    Winging
+  </text>
+  
+  <!-- Decorative dots -->
+  <circle cx="155" cy="20" r="2" fill="#F47B7B" opacity="0.6"/>
+  <circle cx="162" cy="23" r="2" fill="#6FD3B8" opacity="0.6"/>
+  <circle cx="159" cy="28" r="2" fill="#FFB454" opacity="0.6"/>
+</svg>
