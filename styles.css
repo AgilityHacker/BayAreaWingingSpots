@@ -1627,6 +1627,15 @@ a:hover {
     color: white;
 }
 
+/* Ensure footer text is readable */
+.theme-retro .footer-content,
+.theme-retro .footer-content p,
+.theme-retro .footer-main,
+.theme-retro .footer-note {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 /* Reduce footer decoration movement */
 .theme-retro .site-footer::before {
     content: '🌊';  /* Just wave */
