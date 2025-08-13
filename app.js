@@ -510,6 +510,7 @@
                 break;
             case 'spots':
                 showView('spots');
+                applyFilters();  // Apply filters first to process URL params
                 renderSpots();
                 break;
             case 'getting-started':
@@ -533,6 +534,9 @@
 
     // Parse URL Parameters
     function parseRouteParams(params) {
+        // Clear existing filters first
+        clearAllFilters(false);  // false = don't navigate
+        
         const urlParams = new URLSearchParams(params);
         
         if (urlParams.has('q')) {
@@ -649,6 +653,11 @@
         if (elements.spotsGrid) {
             elements.spotsGrid.addEventListener('click', handleSpotCardClick);
         }
+        
+        // Beginner spots grid click delegation
+        if (elements.beginnerSpotsGrid) {
+            elements.beginnerSpotsGrid.addEventListener('click', handleSpotCardClick);
+        }
     }
 
     // Update Lens Buttons
@@ -704,7 +713,7 @@
     }
 
     // Clear All Filters
-    function clearAllFilters() {
+    function clearAllFilters(navigate = true) {
         state.filters = {
             region: [],
             skill: [],
@@ -720,8 +729,10 @@
             elements.searchInput.value = '';
         }
         
-        applyFilters();
-        renderSpots();
+        if (navigate) {
+            applyFilters();
+            renderSpots();
+        }
     }
 
     // Apply Filters
