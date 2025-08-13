@@ -288,18 +288,53 @@
 
     // Initialize Maps
     function initializeMaps() {
-        mapAdapter = MapAdapter.select();
-        
-        // Directory map
-        if (document.getElementById('directory-map')) {
-            directoryMap = mapAdapter.init('directory-map', [37.8, -122.4], 9);
-            if (directoryMap && state.spots.length) {
-                state.spots.forEach(spot => {
-                    mapAdapter.addMarker(directoryMap, spot);
-                });
-                mapAdapter.fitToSpots(directoryMap, state.spots);
+        // Wait for DOM and spots to be ready
+        setTimeout(() => {
+            mapAdapter = MapAdapter.select();
+            
+            // Initialize directory map
+            const mapElement = document.getElementById('directory-map');
+            const svgElement = document.getElementById('svg-map-fallback');
+            
+            if (mapElement || svgElement) {
+                // Check if we should use SVG fallback
+                if (typeof L === 'undefined') {
+                    // Hide Leaflet map, show SVG
+                    if (mapElement) mapElement.style.display = 'none';
+                    if (svgElement) {
+                        svgElement.style.display = 'block';
+                        const svg = svgElement.querySelector('svg');
+                        if (svg && state.spots.length) {
+                            // Use SVG adapter
+                            const svgAdapter = new SvgAdapter();
+                            state.spots.forEach(spot => {
+                                svgAdapter.addMarker(svg, spot);
+                            });
+                        }
+                    }
+                } else {
+                    // Use Leaflet
+                    try {
+                        directoryMap = L.map('directory-map').setView([37.8, -122.4], 9);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '© OpenStreetMap contributors',
+                            maxZoom: 18
+                        }).addTo(directoryMap);
+                        
+                        // Add markers
+                        if (state.spots.length) {
+                            const leafletAdapter = new LeafletAdapter();
+                            state.spots.forEach(spot => {
+                                leafletAdapter.addMarker(directoryMap, spot);
+                            });
+                            leafletAdapter.fitToSpots(directoryMap, state.spots);
+                        }
+                    } catch (e) {
+                        console.log('Map initialization deferred');
+                    }
+                }
             }
-        }
+        }, 500);
     }
 
     // Gallery Component
@@ -512,6 +547,10 @@
                 showView('spots');
                 applyFilters();  // Apply filters first to process URL params
                 renderSpots();
+                // Reinitialize map if needed
+                if (!directoryMap) {
+                    initializeMaps();
+                }
                 break;
             case 'getting-started':
                 showView('getting-started');
