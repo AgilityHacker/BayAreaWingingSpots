@@ -122,6 +122,13 @@
                     </div>
                 </div>
                 <div id="directory-map" class="map"></div>
+                <!-- Fallback static map -->
+                <div id="map-fallback" class="map-fallback" style="display:none;">
+                    <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-122.25,37.65,9.5,0/800x450@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" 
+                         alt="Bay Area Wing Foiling Spots Map" 
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="map-overlay-text">Interactive map requires JavaScript</div>
+                </div>
                 <!-- SVG Fallback Map -->
                 <div id="svg-map-fallback" class="svg-map" style="display:none">
                     <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"></svg>

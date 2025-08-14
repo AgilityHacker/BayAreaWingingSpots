@@ -295,6 +295,14 @@
             // Skip if map already initialized or element doesn't exist
             if (!mapElement || directoryMap) return;
             
+            // Make sure the container is visible and has dimensions
+            const containerVisible = mapElement.offsetWidth > 0 && mapElement.offsetHeight > 0;
+            if (!containerVisible) {
+                console.log('Map container not yet visible, retrying...');
+                setTimeout(initMap, 500);
+                return;
+            }
+            
             // Check if Leaflet is available
             if (typeof L !== 'undefined') {
                 try {
@@ -305,6 +313,13 @@
                         minZoom: 9,
                         maxZoom: 18
                     });
+                    
+                    // Force a resize after initialization
+                    setTimeout(() => {
+                        if (directoryMap) {
+                            directoryMap.invalidateSize();
+                        }
+                    }, 100);
                     
                     // Add tile layer
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -358,16 +373,28 @@
                     console.log('Map initialized successfully');
                 } catch (e) {
                     console.error('Error initializing map:', e);
-                    // Fall back to SVG
-                    showSvgFallback();
+                    // Fall back to static image
+                    showStaticFallback();
                 }
             } else {
-                // Use SVG fallback if Leaflet not available
-                showSvgFallback();
+                // Use static fallback if Leaflet not available
+                console.log('Leaflet not available, showing static map');
+                showStaticFallback();
             }
         };
         
-        // Function to show SVG fallback
+        // Function to show static fallback
+        const showStaticFallback = () => {
+            const mapElement = document.getElementById('directory-map');
+            const fallbackElement = document.getElementById('map-fallback');
+            
+            if (mapElement) mapElement.style.display = 'none';
+            if (fallbackElement) {
+                fallbackElement.style.display = 'block';
+            }
+        };
+        
+        // Function to show SVG fallback (kept for reference)
         const showSvgFallback = () => {
             const mapElement = document.getElementById('directory-map');
             const svgElement = document.getElementById('svg-map-fallback');
@@ -605,10 +632,13 @@
                 renderSpots();
                 // Reinitialize map after view is shown
                 setTimeout(() => {
-                    if (!directoryMap && typeof L !== 'undefined') {
+                    if (!directoryMap) {
                         initializeMaps();
+                    } else if (directoryMap) {
+                        // If map exists, just invalidate size to fix rendering
+                        directoryMap.invalidateSize();
                     }
-                }, 100);
+                }, 200);
                 break;
             case 'getting-started':
                 showView('getting-started');
